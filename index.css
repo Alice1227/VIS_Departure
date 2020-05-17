@@ -1,0 +1,49 @@
+body {
+  font-family: "Microsoft JhengHei";
+}
+
+.d3-tip {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  font-size: 10px;
+  box-sizing: border-box;
+  display: inline;
+  width: 100%;
+  line-height: 1;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.bar-tip {
+  background: #585455;
+  border: solid 1px #585455;
+}
+
+.bar-tip:after {
+  color: #585455;
+}
+
+.line-tip {
+  background: #4471C5;
+  border: solid 1px #4471C5;
+}
+
+.line-tip:after {
+  color: #4471C5;
+}
