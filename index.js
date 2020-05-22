@@ -1,14 +1,13 @@
 let note = document.querySelector("#note");
 
 function select() {
-
+  d3.select('.chart').remove();
   let country = document.querySelector("#country").value;
   if (country !== "") {
     note.innerHTML = "*備註：<br>";
     update(dataset[country]);
   } else {
     note.innerHTML = "";
-    d3.select('.chart').remove();
   }
 }
 
@@ -23,8 +22,8 @@ const width = 600;
 const height = 400;
 
 const white = "#fff";
-const blue = "#4471C5";
-const levelColors = ["#B5B5B5", "#FFCD1E", "#EB7424", "#E14F50"];
+const black = "#000";
+const levelColors = ["#70def1", "#fee698", "#ffbbbe", "#dd84a1"];
 
 let formatComma = d3.format(",d");
 let sortLevel = function(d) {
@@ -51,7 +50,6 @@ let svg = d3.select('#graph')
   .attr('height', height);
 
 function update(data) {
-  d3.select('.chart').remove();
   let chart = svg.append('g').attr('class', 'chart');
 
   let xScale = d3.scaleBand()
@@ -88,7 +86,7 @@ function update(data) {
     .attr("transform", `translate(${margin.left}, 0)`)
     .call(y1Axis)
     .selectAll('text')
-    .style('fill', blue)
+    .style('fill', black)
     .style('font-weight', 'bold');
   // y axis right
   axis.append('g')
@@ -142,8 +140,8 @@ function update(data) {
     .on("mouseover", bar_tooltip.show)
     .on("mouseout", bar_tooltip.hide)
     .transition()
-    .duration(500)
-    .delay((d, i) => i * 500)
+    .duration(375)
+    .delay((d, i) => i * 375)
     .ease(d3.easeLinear)
     .attr('y', d => y2Scale(d.plane))
     .attr('height', d => y2Scale(0) - y2Scale(d.plane));
@@ -170,7 +168,7 @@ function update(data) {
   let lineChart = chart.append('g').attr('class', 'line-chart');
   let line_tooltip = d3.tip()
     .attr('class', 'd3-tip line-tip')
-    .offset([-20, 0])
+    .offset([-30, 0])
     .html(d => {
       return `<div>載客人數 (${d.month}月)</div><div>${formatComma(d.passenger)} 人</div>`;
     });
@@ -180,7 +178,7 @@ function update(data) {
     .datum(data)
     .attr('class', 'line')
     .attr('fill', 'none')
-    .attr('stroke', blue)
+    .attr('stroke', black)
     .attr('stroke-width', 2)
     .attr('d', d3.line()
       .x(d => xScale(d.month) + xScale.bandwidth() / 2)
@@ -189,7 +187,7 @@ function update(data) {
   line.attr('stroke-dasharray', totalLength + " " + totalLength)
     .attr('stroke-dashoffset', totalLength)
     .transition()
-    .duration(2000)
+    .duration(1500)
     .ease(d3.easeLinear)
     .attr('stroke-dashoffset', 0);
 
@@ -200,33 +198,32 @@ function update(data) {
     .attr('cx', d => xScale(d.month) + xScale.bandwidth() / 2)
     .attr('cy', d => y1Scale(d.passenger))
     .attr('fill', white)
-    .attr('stroke', blue)
+    .attr('stroke', black)
     .attr('stroke-width', 3)
     .attr('r', 0)
     .on("mouseover", line_tooltip.show)
     .on("mouseout", line_tooltip.hide)
     .transition()
-    .duration(500)
-    .delay((d, i) => i * 500)
+    .duration(375)
+    .delay((d, i) => i * 375)
     .ease(d3.easeLinear)
     .attr('r', 5);
-  /*
+  
     let dotLabel = lineChart.selectAll('.dot-label').data(data);
     dotLabel.enter()
       .append('text')
       .attr('class', 'dot-label')
       .text('')
       .attr('x', d => xScale(d.month) + xScale.bandwidth() / 2)
-      .attr('y', d => y1Scale(d.passenger) - 20)
+      .attr('y', d => y1Scale(d.passenger) - 15)
       .attr('text-anchor', 'middle')
       .attr('font-size', 12)
       .transition()
-      .duration(500)
-      .delay((d, i) => i * 500)
+      .duration(375)
+      .delay((d, i) => i * 375)
       .ease(d3.easeLinear)
       .text(d => formatComma(d.passenger));
-  */
-
+  
   // level label
   let levelLabel = chart.append('g').attr('class', 'level-label');
   let rectSize = 18;

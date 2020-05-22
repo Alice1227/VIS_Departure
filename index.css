@@ -31,17 +31,17 @@ body {
 }
 
 .bar-tip {
-  background: #585455;
-  border: solid 1px #585455;
+  background: #aaa;
+  border: solid 1px #aaa;
 }
 
 .bar-tip:after {
-  color: #585455;
+  color: #aaa;
 }
 
 .line-tip {
-  background: #4471C5;
-  border: solid 1px #4471C5;
+  background: #585455;
+  border: solid 1px #585455;
 }
 
 .line-tip:after {
